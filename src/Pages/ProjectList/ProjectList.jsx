@@ -12,6 +12,19 @@ import { Label } from "../..//components/ui/label";
 import { Input } from "../../components/ui/input";
 import { ProjectCard } from "../../Project/ProjectCard";
 
+export const tags = [
+  "all",
+  "react",
+  "nextjs",
+  "springboot",
+  "mysql",
+  "mongodb",
+  "angular",
+  "python",
+  "flask",
+  "django",
+];
+
 export const ProjectList = () => {
   const [keyword, setKeyword] = useState("");
 
@@ -19,26 +32,13 @@ export const ProjectList = () => {
     if (e && e.target) {
       setKeyword(e.target.value);
     } else {
-      console.error('Event or event.target is undefined');
+      console.error("Event or event.target is undefined");
     }
   };
 
   const handleFilterChange = (category, value) => {
     console.log("category", category, "value", value);
   };
-
-  const tags = [
-    "all",
-    "react",
-    "nextjs",
-    "springboot",
-    "mysql",
-    "mongodb",
-    "angular",
-    "python",
-    "flask",
-    "django",
-  ];
 
   // Placeholder for project data
   const projects = [1, 2, 3, 4, 5];
@@ -65,12 +65,19 @@ export const ProjectList = () => {
                         handleFilterChange("Category", value)
                       }
                     >
-                      {["all", "fullstack", "frontend", "backend"].map((category) => (
-                        <div key={category} className="flex gap-2 pb-2">
-                          <RadioGroupItem value={category} id={`category-${category}`} />
-                          <Label htmlFor={`category-${category}`}>{category}</Label>
-                        </div>
-                      ))}
+                      {["all", "fullstack", "frontend", "backend"].map(
+                        (category) => (
+                          <div key={category} className="flex gap-2 pb-2">
+                            <RadioGroupItem
+                              value={category}
+                              id={`category-${category}`}
+                            />
+                            <Label htmlFor={`category-${category}`}>
+                              {category}
+                            </Label>
+                          </div>
+                        )
+                      )}
                     </RadioGroup>
                   </div>
                 </div>
@@ -112,11 +119,12 @@ export const ProjectList = () => {
           <div>
             <div className="space-y-5 min-h-[74vh]">
               {projects
-                .filter(project => keyword ? /* add your search logic here */ true : true)
+                .filter((project) =>
+                  keyword ? /* add your search logic here */ true : true
+                )
                 .map((project) => (
                   <ProjectCard key={`project-${project}`} />
-                ))
-              }
+                ))}
             </div>
           </div>
         </section>
