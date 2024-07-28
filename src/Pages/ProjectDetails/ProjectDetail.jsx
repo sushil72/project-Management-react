@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import {
   Dialog,
   DialogTrigger,
@@ -34,7 +34,7 @@ const ProjectDetail = () => {
                 <p className="w-36">Project Lead : </p>
                 <p>Zosh</p>
               </div>
-              <div className="flex">
+              <div className="flex gap-4">
                 <p className="w-36">Members : </p>
                 <div className="flex items-center gap-2">
                   {[1, 1, 1, 1].map((item) => (
@@ -51,7 +51,7 @@ const ProjectDetail = () => {
                         variant="outline"
                         Onclick={handleProjectInvitation}
                       >
-                        <span>invite</span>
+                        <span className="">invite</span>
                         <PlusIcon className="w-3 h-3" />
                       </Button>
                     </DialogClose>
