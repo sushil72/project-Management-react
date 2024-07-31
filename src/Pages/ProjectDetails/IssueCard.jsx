@@ -9,13 +9,22 @@ import { Button } from "@/components/ui/button";
 import { DotsVerticalIcon, PersonIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import UserList from "./UserList";
+import { useNavigate } from "react-router-dom";
 
 function IssueCard() {
+  const navigate = useNavigate();
   return (
     <Card className="rounded-md py-1 pb-2">
       <CardHeader className="py-0 pb-1">
         <div className="flex justify-between items-center">
-          <CardTitle>Create Navbar</CardTitle>
+          <CardTitle
+            onClick={() => {
+              navigate("/project/3/issue/10");
+            }}
+            className="cursor-pointer"
+          >
+            Create Navbar
+          </CardTitle>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button className="rounded-full" size="icon" variant="ghost">
