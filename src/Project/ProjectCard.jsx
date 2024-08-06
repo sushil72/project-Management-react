@@ -1,19 +1,24 @@
 import { DotFilledIcon, DotsVerticalIcon } from "@radix-ui/react-icons";
 import { Card } from "../components/ui/card";
-import React from "react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  Item,
 } from "@radix-ui/react-dropdown-menu";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteProject } from "@/Redux/Projects/Action";
 
-export const ProjectCard = () => {
+export const ProjectCard = ({ item }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteProject({ projectId: item.id }));
+  };
   return (
     <Card className="p-5 w-full lg:max-w-3xl">
       <div className="space-y-5">
@@ -24,10 +29,10 @@ export const ProjectCard = () => {
                 onClick={() => navigate("/project/3")}
                 className="cursor-pointer font-bold text-lg"
               >
-                Create Ecommerce Project
+                {item.name}
               </h1>
               <DotFilledIcon />
-              <p className="text-sm text-gray-300">fulstack</p>
+              <p className="text-sm text-gray-300">{item.category}</p>
             </div>
             <div>
               <DropdownMenu>
@@ -38,20 +43,19 @@ export const ProjectCard = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem>Update</DropdownMenuItem>
-                  <DropdownMenuItem>Delete</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleDelete}>
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
           </div>
-          <p className="text-gray-400">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Accusantium enim commodi hic
-          </p>
+          <p className="text-gray-400">{item.description}</p>
         </div>
         <div className="flex flex-wrap gap-2 items-center">
-          {[1, 1, 1, 1].map((Item) => (
-            <Badge key={Item} variant="outline">
-              html
+          {item.tags.map((tag) => (
+            <Badge key={item} variant="outline">
+              {tag}
             </Badge>
           ))}
         </div>

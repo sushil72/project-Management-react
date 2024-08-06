@@ -4,7 +4,6 @@ import {
   DialogTrigger,
   DialogHeader,
 } from "../../components/ui/dialog";
-import React from "react";
 import { Button } from "../../components/ui/button";
 import CreateProjectForm from "../../Project/CreateProjectForm";
 import {
@@ -15,11 +14,18 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { PersonIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/Redux/Auth/Action";
 
 const Navbar = () => {
+  const { auth } = useSelector((store) => store);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
-    <div className="border-b py-4 flex items-center justify-between">
+    <div className="border-b  px-8 py-4 flex items-center justify-between">
       <div className="flex item-center gap-3">
         <p onClick={() => navigate("/")} className="cursor-pointer">
           Project Management
@@ -55,10 +61,10 @@ const Navbar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}> Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <p>Susheel</p>
+        <p>{auth.user?.fullname}</p>
       </div>
     </div>
   );
