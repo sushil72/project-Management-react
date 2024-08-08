@@ -11,7 +11,7 @@ import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import UserList from "./UserList";
 import { useNavigate } from "react-router-dom";
 
-function IssueCard() {
+function IssueCard({ item, projectId }) {
   const navigate = useNavigate();
   return (
     <Card className="rounded-md py-1 pb-2">
@@ -19,11 +19,11 @@ function IssueCard() {
         <div className="flex justify-between items-center">
           <CardTitle
             onClick={() => {
-              navigate("/project/3/issue/10");
+              navigate(`/project/${projectId}/issue/${item.id}`);
             }}
             className="cursor-pointer"
           >
-            Create Navbar
+            {item.title}
           </CardTitle>
           <DropdownMenu>
             <DropdownMenuTrigger>

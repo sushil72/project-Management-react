@@ -26,7 +26,7 @@ export const ProjectCard = ({ item }) => {
           <div className="flex justify-between">
             <div className="flex item-center gap-5">
               <h1
-                onClick={() => navigate("/project/3")}
+                onClick={() => navigate("/project/" + item.id)}
                 className="cursor-pointer font-bold text-lg"
               >
                 {item.name}
@@ -53,11 +53,12 @@ export const ProjectCard = ({ item }) => {
           <p className="text-gray-400">{item.description}</p>
         </div>
         <div className="flex flex-wrap gap-2 items-center">
-          {item.tags.map((tag) => (
-            <Badge key={item} variant="outline">
-              {tag}
-            </Badge>
-          ))}
+          {item.tags &&
+            item.tags.map((tag, index) => (
+              <Badge key={`${item.id}-${tag}-${index}`} variant="outline">
+                {tag}
+              </Badge>
+            ))}
         </div>
       </div>
     </Card>

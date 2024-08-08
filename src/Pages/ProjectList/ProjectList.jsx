@@ -74,7 +74,7 @@ export const ProjectList = () => {
                       handleFilterChange("Category", value)
                     }
                   >
-                    {["all", "fullstack", "frontend", "backend"].map(
+                    {["all", "Fullstack", "Frontend", "backend"].map(
                       (category) => (
                         <div key={category} className="flex gap-2 pb-2">
                           <RadioGroupItem

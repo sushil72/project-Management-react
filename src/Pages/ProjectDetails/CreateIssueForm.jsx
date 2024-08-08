@@ -9,18 +9,30 @@ import {
 } from "@/components/ui/form";
 import { Input } from "../../components/ui/input";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { createIssue } from "@/Redux/issue/Action";
+import { useParams } from "react-router-dom";
 
 function CreateIssueForm() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const form = useForm({
     defaultValues: {
-      email: "",
-
-      tags: [],
+      issueName: "",
+      description: "",
     },
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    data.projectId = id;
+    dispatch(
+      createIssue({
+        title: data.issueName,
+        description: data.description,
+        projectId: id,
+      })
+    );
+    console.log("create project data", data);
   };
   return (
     <div>

@@ -69,7 +69,7 @@ export const projectReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        projectDetails: action.payload,
+        projectDetails: action.projects,
         error: null,
       };
 
