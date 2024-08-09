@@ -7,7 +7,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "../../components/ui/input";
+import { Input } from "@/components/ui/input"; // Corrected import path
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { createIssue } from "@/Redux/issue/Action";
@@ -16,24 +16,30 @@ import { useParams } from "react-router-dom";
 function CreateIssueForm() {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  // Initialize form with default values
   const form = useForm({
     defaultValues: {
       issueName: "",
-      description: "",
+      description: "", // Corrected the field name
     },
   });
 
+  // Handle form submission
   const onSubmit = (data) => {
-    data.projectId = id;
+    data.projectId = id; // Assign projectId from route parameters
+    console.log("ProjectID=", id);
+
     dispatch(
       createIssue({
-        title: data.issueName,
-        description: data.description,
-        projectId: id,
+        title: data.issueName, // Pass issueName as title
+        description: data.description, // Corrected field name
+        projectID: id,
       })
     );
     console.log("create project data", data);
   };
+
   return (
     <div>
       <Form {...form}>
@@ -48,7 +54,7 @@ function CreateIssueForm() {
                     {...field}
                     type="text"
                     className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="User email..."
+                    placeholder="Issue title..."
                   />
                 </FormControl>
                 <FormMessage />
@@ -58,7 +64,7 @@ function CreateIssueForm() {
 
           <FormField
             control={form.control}
-            name="discription"
+            name="description" // Corrected name to "description"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
@@ -66,7 +72,7 @@ function CreateIssueForm() {
                     {...field}
                     type="text"
                     className="border w-full border-gray-700 py-5 px-5"
-                    placeholder="Issue discription..."
+                    placeholder="Issue description..."
                   />
                 </FormControl>
                 <FormMessage />
