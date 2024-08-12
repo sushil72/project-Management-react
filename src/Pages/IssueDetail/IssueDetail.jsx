@@ -12,23 +12,33 @@ import {
 } from "@/components/ui/select";
 import { AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchIssueById, updateIssuesStatus } from "@/Redux/issue/Action";
 
 const IssueDetail = () => {
-  const { projectId, issueId } = useParams();
-  const handleUpdateIssuestatus = () => {};
+  const { issueId } = useParams();
+  const dispatch = useDispatch();
+  const { issue } = useSelector((store) => store);
+  const handleUpdateIssuestatus = (status) => {
+    dispatch(updateIssuesStatus({ id: issueId, status }));
+    // console.log(status);
+  };
+  useEffect(() => {
+    dispatch(fetchIssueById(issueId));
+  }, [issueId, dispatch]);
   return (
     <div className="px-20 py-8 text-gray-400 ">
       <div className="border p-10 rounded-lg flex justify-between">
         <ScrollArea className="h-[80vh] w-[60%]">
           <div>
             <h1 className="text-lg font-semibold text-gray-400">
-              Create Navbar
+              {issue.issues?.title}
             </h1>
             <div className="py-5">
               <h2 className="font-semibold text-gray-400">Description</h2>
               <p className="text-gray-400 text-sm mt-3">
-                Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor
-                sit.
+                {issue.issues?.description}
               </p>
               <div className="mt-5">
                 <h1 className="pb-3">Activity</h1>
@@ -64,8 +74,8 @@ const IssueDetail = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="in_progress">In Progress</SelectItem>
-              <SelectItem value="done">Done</SelectItem>
+              <SelectItem value="In-Progress">In Progress</SelectItem>
+              <SelectItem value="Done">Done</SelectItem>
             </SelectContent>
           </Select>
           <div className="border rounded-lg">
@@ -74,12 +84,16 @@ const IssueDetail = () => {
               <div className="space-y-7">
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Assignee</p>
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarFallback>K</AvatarFallback>
-                    </Avatar>
-                    <p>Code with Sushil</p>
-                  </div>
+                  {issue.issues?.assignee?.fullName ? (
+                    <div className="flex items-center gap-3">
+                      <Avatar className="h-8 w-8 text-xs">
+                        <AvatarFallback>K</AvatarFallback>
+                      </Avatar>
+                      <p>Code with Sushil</p>
+                    </div>
+                  ) : (
+                    <p>unassigned</p>
+                  )}
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Labels</p>
@@ -87,7 +101,7 @@ const IssueDetail = () => {
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Status</p>
-                  <Badge>In Progress</Badge>
+                  <Badge>{issue.issues?.status}</Badge>
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Labels</p>

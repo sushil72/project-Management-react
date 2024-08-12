@@ -6,11 +6,11 @@ export const fetchIssues = (id) => {
     dispatch({ type: actionTypes.FETCH_ISSUE_BY_ID_REQUEST });
     try {
       const response = await api.get(`/api/issue/project/${id}`);
-      console.log("fetched issue are", response.data);
       dispatch({
         type: actionTypes.FETCH_ISSUE_SUCCESS,
         issues: response.data,
       });
+      console.log("fetched issue are", response.data);
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_ISSUE_FAILURE,
@@ -27,7 +27,7 @@ export const fetchIssueById = (id) => {
       type: actionTypes.FETCH_ISSUE_BY_ID_REQUEST,
     });
     try {
-      const response = await api.get(`/api/issues/${id}`);
+      const response = await api.get(`/api/issue/${id}`);
       console.log("fetch issue by id", response.data);
       dispatch({
         type: actionTypes.FETCH_ISSUE_BY_ID_SUCCESS,
@@ -42,12 +42,12 @@ export const fetchIssueById = (id) => {
   };
 };
 
-export const updateIssuesstatus = ({ id, status }) => {
+export const updateIssuesStatus = ({ id, status }) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_ISSUE_STATUS_REQUEST });
     try {
-      const response = await api.put(`/api/issues/${id}/status/${status}`);
-      console.log("update issue status", response.data);
+      const response = await api.put(`/api/issue/${id}/status/${status}`);
+      console.log("updated issue status", response.data);
       dispatch({
         type: actionTypes.UPDATE_ISSUE_STATUS_SUCCESS,
         issues: response.data,
@@ -68,7 +68,7 @@ export const assignedUserToIssue = ({ issueId, userId }) => {
     dispatch({ type: actionTypes.ASSIGNED_ISSUE_TO_USER_REQUEST });
     try {
       const response = await api.put(
-        `/api/issues/${issueId}/assignee/${userId}`
+        `/api/issue/${issueId}/assignee/${userId}`
       );
       console.log();
       dispatch({
@@ -90,9 +90,9 @@ export const createIssue = (issueData) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.CREATE_ISSUE_REQUEST });
     try {
-      console.log("before Issue data", issueData);
       const response = await api.post("/api/issue", issueData);
 
+      console.log("response data", response.data);
       dispatch({
         type: actionTypes.CREATE_ISSUE_SUCCESS,
         issue: response.data,

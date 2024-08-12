@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { createIssue } from "@/Redux/issue/Action";
 import { useParams } from "react-router-dom";
 
-function CreateIssueForm() {
+function CreateIssueForm({ status }) {
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -35,6 +35,7 @@ function CreateIssueForm() {
         title: data.issueName, // Pass issueName as title
         description: data.description, // Corrected field name
         projectID: id,
+        status: status,
       })
     );
     console.log("create project data", data);

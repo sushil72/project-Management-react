@@ -9,21 +9,17 @@ import { Button } from "@/components/ui/button";
 import { DotsVerticalIcon, PersonIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback } from "../../components/ui/avatar";
 import UserList from "./UserList";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteIssue, fetchIssues } from "@/Redux/issue/Action";
-import { useEffect } from "react";
+import { deleteIssue } from "@/Redux/issue/Action";
 
 function IssueCard({ item, projectId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
   const handleDeleteIssue = () => {
     dispatch(deleteIssue(item.id));
   };
-  useEffect(() => {
-    dispatch(fetchIssues(id));
-  }, [id]);
+
   return (
     <Card className="rounded-md py-1 pb-2">
       <CardHeader className="py-0 pb-1">
@@ -70,7 +66,7 @@ function IssueCard({ item, projectId }) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <UserList />
+              <UserList issueDetails={item} />
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
