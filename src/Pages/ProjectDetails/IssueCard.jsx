@@ -14,11 +14,15 @@ import { useDispatch } from "react-redux";
 import { deleteIssue } from "@/Redux/issue/Action";
 
 function IssueCard({ item, projectId }) {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleDeleteIssue = () => {
+    console.log("inside handle Delete ");
+    
     dispatch(deleteIssue(item.id));
   };
+  
 
   return (
     <Card className="rounded-md py-1 pb-2">

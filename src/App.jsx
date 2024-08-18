@@ -16,7 +16,6 @@ export default function App() {
     dispatch(getUser());
     dispatch(fetchProjects({}));
   }, [auth.jwt]);
-  console.log(auth);
 
   return (
     <>

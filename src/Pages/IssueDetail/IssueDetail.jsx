@@ -26,7 +26,7 @@ const IssueDetail = () => {
   };
   useEffect(() => {
     dispatch(fetchIssueById(issueId));
-  }, [issueId, dispatch]);
+  }, [issueId]);
   return (
     <div className="px-20 py-8 text-gray-400 ">
       <div className="border p-10 rounded-lg flex justify-between">
@@ -54,8 +54,8 @@ const IssueDetail = () => {
                   <TabsContent value="comment">
                     <CreateCommentForm issueId={issueId} />
                     <div className="mt-8 space-y-6">
-                      {[1, 2, 3].map((item) => (
-                        <CommentCard key={item} />
+                      {[1, 2, 3].map((item, index) => (
+                        <CommentCard key={index} />
                       ))}
                     </div>
                   </TabsContent>
@@ -84,7 +84,7 @@ const IssueDetail = () => {
               <div className="space-y-7">
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Assignee</p>
-                  {issue.issues?.assignee?.fullName ? (
+                  {issue.issueDetails?.assignee?.fullname ? (
                     <div className="flex items-center gap-3">
                       <Avatar className="h-8 w-8 text-xs">
                         <AvatarFallback>K</AvatarFallback>

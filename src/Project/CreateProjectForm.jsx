@@ -126,17 +126,17 @@ const CreateProjectForm = () => {
                         <SelectValue placeholder="Select tags" />
                       </SelectTrigger>
                       <SelectContent>
-                        {tags.map((tag) => (
-                          <SelectItem key={tag} value={tag}>
+                        {tags.map((tag, index) => (
+                          <SelectItem key={index} value={tag}>
                             {tag}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                     <div className="flex gap-2 flex-wrap mt-2">
-                      {field.value.map((item) => (
+                      {field.value.map((item, index) => (
                         <div
-                          key={item}
+                          key={index}
                           className="cursor-pointer flex rounded-full items-center border gap-2 py-1 px-2"
                         >
                           <span className="text-sm">{item}</span>

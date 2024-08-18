@@ -25,12 +25,11 @@ const IssueList = ({ title, status }) => {
   const { issue } = useSelector((store) => store);
   const { id } = useParams();
   const dispatch = useDispatch();
-  console.log(status);
 
   useEffect(() => {
     dispatch(fetchIssues(id));
   }, [id]);
-
+  
   return (
     <div>
       <Dialog>
@@ -42,8 +41,8 @@ const IssueList = ({ title, status }) => {
             <div className="space-y-2">
               {issue.issues
                 ?.filter((issue) => issue.status === status)
-                .map((item) => (
-                  <IssueCard projectId={id} key={item.id} item={item} />
+                .map((item, index) => (
+                  <IssueCard projectId={id} key={index} item={item} />
                 )) || <p>No issues found.</p>}
             </div>
           </CardContent>
@@ -61,7 +60,7 @@ const IssueList = ({ title, status }) => {
         </Card>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Create New Issue</DialogTitle>
+            <DialogTitle>Create new Issue</DialogTitle>
           </DialogHeader>
           <CreateIssueForm status={status} />
         </DialogContent>

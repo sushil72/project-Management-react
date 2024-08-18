@@ -48,8 +48,8 @@ const ProjectDetail = () => {
               <div className="flex gap-4">
                 <p className="w-36">Members : </p>
                 <div className="flex items-center gap-2">
-                  {project.projectDetails?.team.map((item) => (
-                    <Avatar className="cursor-pointer" key={item}>
+                  {project.projectDetails?.team.map((item, index) => (
+                    <Avatar className="cursor-pointer" key={index}>
                       <AvatarFallback>{item.fullname[0]}</AvatarFallback>
                     </Avatar>
                   ))}

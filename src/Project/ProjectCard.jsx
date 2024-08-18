@@ -55,7 +55,7 @@ export const ProjectCard = ({ item }) => {
         <div className="flex flex-wrap gap-2 items-center">
           {item.tags &&
             item.tags.map((tag, index) => (
-              <Badge key={`${item.id}-${tag}-${index}`} variant="outline">
+              <Badge key={index} variant="outline">
                 {tag}
               </Badge>
             ))}

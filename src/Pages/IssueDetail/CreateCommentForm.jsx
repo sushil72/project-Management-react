@@ -9,8 +9,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const CreateCommentForm = () => {
+  const dispatch = useDispatch();
   const form = useForm({
     defaultValues: {
       email: "",

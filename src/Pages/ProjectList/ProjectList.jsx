@@ -75,8 +75,8 @@ export const ProjectList = () => {
                     }
                   >
                     {["all", "Fullstack", "Frontend", "backend"].map(
-                      (category) => (
-                        <div key={category} className="flex gap-2 pb-2">
+                      (category, index) => (
+                        <div key={index} className="flex gap-2 pb-2">
                           <RadioGroupItem
                             value={category}
                             id={`category-${category}`}
@@ -98,8 +98,8 @@ export const ProjectList = () => {
                     className="space-y-3 pt-5"
                     onValueChange={(value) => handleFilterChange("Tag", value)}
                   >
-                    {tags.map((item) => (
-                      <div key={item} className="flex gap-2">
+                    {tags.map((item, index) => (
+                      <div key={index} className="flex gap-2">
                         <RadioGroupItem value={item} id={`tag-${item}`} />
                         <Label htmlFor={`tag-${item}`}>{item}</Label>
                       </div>
@@ -126,8 +126,8 @@ export const ProjectList = () => {
         <div>
           <div className="space-y-5 min-h-[74vh]">
             {displayProjects && displayProjects.length > 0 ? (
-              displayProjects.map((item) => (
-                <ProjectCard key={item.id} item={item} />
+              displayProjects.map((item, index) => (
+                <ProjectCard key={index} item={item} />
               ))
             ) : (
               <p>No projects found</p>

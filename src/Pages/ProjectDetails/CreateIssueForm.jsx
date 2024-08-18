@@ -28,8 +28,6 @@ function CreateIssueForm({ status }) {
   // Handle form submission
   const onSubmit = (data) => {
     data.projectId = id; // Assign projectId from route parameters
-    console.log("ProjectID=", id);
-
     dispatch(
       createIssue({
         title: data.issueName, // Pass issueName as title
