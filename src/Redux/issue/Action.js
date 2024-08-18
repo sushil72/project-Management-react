@@ -27,10 +27,13 @@ export const fetchIssueById = (id) => {
     });
     try {
       const response = await api.get(`/api/issue/${id}`);
+
       dispatch({
         type: actionTypes.FETCH_ISSUE_BY_ID_SUCCESS,
         issues: response.data,
       });
+
+      console.log("issue fetched by id :", response.data);
     } catch (error) {
       dispatch({
         type: actionTypes.FETCH_ISSUE_BY_ID_FAILURE,
@@ -67,8 +70,8 @@ export const assignedUserToIssue = ({ issueId, userId }) => {
       const response = await api.put(
         `/api/issue/${issueId}/assignee/${userId}`
       );
-      console.log("issue in action ", response.data);
-      await dispatch({
+      console.log("user assigned to issue : ", response.data);
+      dispatch({
         type: actionTypes.ASSIGNED_ISSUE_TO_USER_SUCCESS,
         issues: response.data,
       });

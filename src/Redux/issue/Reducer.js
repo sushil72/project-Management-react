@@ -30,9 +30,10 @@ const issueReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: null,
-        issues: [...state.issues, action.issues],
+        issueDetails: action.issues,
+        // issues: [...state.issues, action.issues],
       };
+
     case actionType.CREATE_ISSUE_SUCCESS:
       return {
         ...state,

@@ -18,27 +18,33 @@ import { fetchIssueById, updateIssuesStatus } from "@/Redux/issue/Action";
 
 const IssueDetail = () => {
   const { issueId } = useParams();
+  // console.log("issueId" ,issueId);
+  
   const dispatch = useDispatch();
   const { issue } = useSelector((store) => store);
+  // console.log("issue on issueDetail:",issue.issues);
+
   const handleUpdateIssuestatus = (status) => {
     dispatch(updateIssuesStatus({ id: issueId, status }));
     // console.log(status);
   };
+
   useEffect(() => {
     dispatch(fetchIssueById(issueId));
   }, [issueId]);
+
   return (
     <div className="px-20 py-8 text-gray-400 ">
       <div className="border p-10 rounded-lg flex justify-between">
         <ScrollArea className="h-[80vh] w-[60%]">
           <div>
             <h1 className="text-lg font-semibold text-gray-400">
-              {issue.issues?.title}
+              {issue.issueDetails?.title}
             </h1>
             <div className="py-5">
               <h2 className="font-semibold text-gray-400">Description</h2>
               <p className="text-gray-400 text-sm mt-3">
-                {issue.issues?.description}
+                {issue.issueDetails?.description}
               </p>
               <div className="mt-5">
                 <h1 className="pb-3">Activity</h1>
@@ -84,16 +90,12 @@ const IssueDetail = () => {
               <div className="space-y-7">
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Assignee</p>
-                  {issue.issueDetails?.assignee?.fullname ? (
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-8 w-8 text-xs">
-                        <AvatarFallback>K</AvatarFallback>
-                      </Avatar>
-                      <p>Code with Sushil</p>
-                    </div>
-                  ) : (
-                    <p>unassigned</p>
-                  )}
+                  {issue.issueDetails?.assignee?.fullname ? <div className="flex gap-3">
+                    <Avatar className="h-8 w-8 text-xs">
+                      <AvatarFallback>{issue.issueDetails.assignee.fullname[0]}</AvatarFallback>
+                    </Avatar>
+                    <p>{issue.issueDetails.assignee.fullname}</p>
+                  </div>:<p>unassigned</p>}
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Labels</p>
