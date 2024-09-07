@@ -15,24 +15,25 @@ import { Badge } from "@/components/ui/badge";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchIssueById, updateIssuesStatus } from "@/Redux/issue/Action";
+import { fetchComments } from "@/Redux/Comment/Action";
 
 const IssueDetail = () => {
   const { issueId } = useParams();
-  // console.log("issueId" ,issueId);
+  
   
   const dispatch = useDispatch();
-  const { issue } = useSelector((store) => store);
-  // console.log("issue on issueDetail:",issue.issues);
-
+  const { issue,comment } = useSelector((store) => store);
+  
   const handleUpdateIssuestatus = (status) => {
     dispatch(updateIssuesStatus({ id: issueId, status }));
-    // console.log(status);
   };
-
+ 
+  
   useEffect(() => {
     dispatch(fetchIssueById(issueId));
+    dispatch(fetchComments(issueId));
   }, [issueId]);
-
+  
   return (
     <div className="px-20 py-8 text-gray-400 ">
       <div className="border p-10 rounded-lg flex justify-between">
@@ -57,13 +58,28 @@ const IssueDetail = () => {
                   <TabsContent value="All">
                     Make changes to your account here.
                   </TabsContent>
+                  {/* <TabsContent value="comment">
+                    <CreateCommentForm issueId={issueId} />
+                    <div className="mt-8 space-y-6">
+                      {comment.comments?.map((item, index) => (
+                        <CommentCard item={item} key={index} />
+                      ))}
+                    </div>
+                  </TabsContent> */}
                   <TabsContent value="comment">
                     <CreateCommentForm issueId={issueId} />
                     <div className="mt-8 space-y-6">
-                      {[1, 2, 3].map((item, index) => (
-                        <CommentCard key={index} />
-                      ))}
+                      {comment.comments && comment.comments.length > 0 ? (
+                        comment.comments.map((item, index) => (
+                          <CommentCard item={item} key={index} />
+                        ))
+                      ) : (
+                        <p>No comments yet.</p>
+                      )}
                     </div>
+                  </TabsContent>
+                  <TabsContent value="history">
+                    Change your password here.
                   </TabsContent>
                   <TabsContent value="history">
                     Change your password here.
