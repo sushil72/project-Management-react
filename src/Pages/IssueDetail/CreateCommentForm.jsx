@@ -10,18 +10,19 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { createComment } from "@/Redux/Comment/Action";
 
-const CreateCommentForm = () => {
+const CreateCommentForm = ({ issueId }) => {
   const dispatch = useDispatch();
   const form = useForm({
     defaultValues: {
-      email: "",
-      tags: [],
+      content: "",
     },
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(createComment({ content: data.content, issueId }));
+    console.log("comment in Form :  ", data);
   };
 
   return (

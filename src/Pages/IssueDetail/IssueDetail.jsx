@@ -19,9 +19,9 @@ import { fetchIssueById, updateIssuesStatus } from "@/Redux/issue/Action";
 const IssueDetail = () => {
   const { issueId } = useParams();
   // console.log("issueId" ,issueId);
-  
+
   const dispatch = useDispatch();
-  const { issue } = useSelector((store) => store);
+  const { issue, comment } = useSelector((store) => store);
   // console.log("issue on issueDetail:",issue.issues);
 
   const handleUpdateIssuestatus = (status) => {
@@ -57,12 +57,24 @@ const IssueDetail = () => {
                   <TabsContent value="All">
                     Make changes to your account here.
                   </TabsContent>
-                  <TabsContent value="comment">
+                  {/* <TabsContent value="comment">
                     <CreateCommentForm issueId={issueId} />
                     <div className="mt-8 space-y-6">
                       {[1, 2, 3].map((item, index) => (
                         <CommentCard key={index} />
                       ))}
+                    </div>
+                  </TabsContent> */}
+                  <TabsContent value="comment">
+                    <CreateCommentForm issueId={issueId} />
+                    <div className="mt-8 space-y-6">
+                      {comment.comments && comment.comments.length > 0 ? (
+                        comment.comments.map((item, index) => (
+                          <CommentCard item={item} key={index} />
+                        ))
+                      ) : (
+                        <p>No comments yet.</p>
+                      )}
                     </div>
                   </TabsContent>
                   <TabsContent value="history">
@@ -90,12 +102,18 @@ const IssueDetail = () => {
               <div className="space-y-7">
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Assignee</p>
-                  {issue.issueDetails?.assignee?.fullname ? <div className="flex gap-3">
-                    <Avatar className="h-8 w-8 text-xs">
-                      <AvatarFallback>{issue.issueDetails.assignee.fullname[0]}</AvatarFallback>
-                    </Avatar>
-                    <p>{issue.issueDetails.assignee.fullname}</p>
-                  </div>:<p>unassigned</p>}
+                  {issue.issueDetails?.assignee?.fullname ? (
+                    <div className="flex gap-3">
+                      <Avatar className="h-8 w-8 text-xs">
+                        <AvatarFallback>
+                          {issue.issueDetails.assignee.fullname[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                      <p>{issue.issueDetails.assignee.fullname}</p>
+                    </div>
+                  ) : (
+                    <p>unassigned</p>
+                  )}
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Labels</p>
