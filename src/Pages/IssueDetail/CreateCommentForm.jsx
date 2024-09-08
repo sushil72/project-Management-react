@@ -19,10 +19,9 @@ const CreateCommentForm = ({ issueId }) => {
       content: "",
     },
   });
-
   const onSubmit = (data) => {
     dispatch(createComment({ content: data.content, issueId }));
-    console.log("comment in Form :  ", data);
+    // console.log("comment in Form :  ", data);
   };
 
   return (
@@ -61,5 +60,4 @@ const CreateCommentForm = ({ issueId }) => {
     </div>
   );
 };
-
 export default CreateCommentForm;

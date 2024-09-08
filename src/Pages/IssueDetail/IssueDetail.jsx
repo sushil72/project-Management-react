@@ -15,26 +15,25 @@ import { Badge } from "@/components/ui/badge";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchIssueById, updateIssuesStatus } from "@/Redux/issue/Action";
+import { fetchComments } from "@/Redux/Comment/Action";
 
 const IssueDetail = () => {
   const { issueId } = useParams();
-  // console.log("issueId" ,issueId);
-
   const dispatch = useDispatch();
   const { issue, comment } = useSelector((store) => store);
-  // console.log("issue on issueDetail:",issue.issues);
 
   const handleUpdateIssuestatus = (status) => {
     dispatch(updateIssuesStatus({ id: issueId, status }));
-    // console.log(status);
   };
 
   useEffect(() => {
     dispatch(fetchIssueById(issueId));
+    dispatch(fetchComments(issueId));
   }, [issueId]);
+  console.log("fetched comment : ", comment.comments);
 
   return (
-    <div className="px-20 py-8 text-gray-400 ">
+    <div className="px-20 py-8 text-gray-400">
       <div className="border p-10 rounded-lg flex justify-between">
         <ScrollArea className="h-[80vh] w-[60%]">
           <div>
@@ -48,23 +47,15 @@ const IssueDetail = () => {
               </p>
               <div className="mt-5">
                 <h1 className="pb-3">Activity</h1>
-                <Tabs defaultValue="account" className="w-[400px]">
+                <Tabs defaultValue="all" className="w-[400px]">
                   <TabsList className="mb-5">
-                    <TabsTrigger value="All">All</TabsTrigger>
+                    <TabsTrigger value="all">All</TabsTrigger>
                     <TabsTrigger value="comment">Comments</TabsTrigger>
                     <TabsTrigger value="history">History</TabsTrigger>
                   </TabsList>
-                  <TabsContent value="All">
-                    Make changes to your account here.
+                  <TabsContent value="all">
+                    <p>Make changes to your account here.</p>
                   </TabsContent>
-                  {/* <TabsContent value="comment">
-                    <CreateCommentForm issueId={issueId} />
-                    <div className="mt-8 space-y-6">
-                      {[1, 2, 3].map((item, index) => (
-                        <CommentCard key={index} />
-                      ))}
-                    </div>
-                  </TabsContent> */}
                   <TabsContent value="comment">
                     <CreateCommentForm issueId={issueId} />
                     <div className="mt-8 space-y-6">
@@ -77,8 +68,9 @@ const IssueDetail = () => {
                       )}
                     </div>
                   </TabsContent>
+
                   <TabsContent value="history">
-                    Change your password here.
+                    <p>Change your password here.</p>
                   </TabsContent>
                 </Tabs>
               </div>
@@ -121,11 +113,7 @@ const IssueDetail = () => {
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Status</p>
-                  <Badge>{issue.issues?.status}</Badge>
-                </div>
-                <div className="flex gap-10 items-center">
-                  <p className="w-[7rem]">Labels</p>
-                  <p>None</p>
+                  <Badge>{issue.issueDetails?.status}</Badge>
                 </div>
                 <div className="flex gap-10 items-center">
                   <p className="w-[7rem]">Release</p>

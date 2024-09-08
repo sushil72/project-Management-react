@@ -14,7 +14,7 @@ export const createComment = (commentData) => {
         type: actiontypes.CREATE_COMMENT_SUCCESS,
         comment: response.data,
       });
-      console.log("comment data in  action : ", response.data);
+      // console.log("comment data in  action : ", response.data);
     } catch (error) {
       console.log(error);
       dispatch({
@@ -29,7 +29,7 @@ export const deleteComment = (commentId) => {
   return async (dispatch) => {
     dispatch({ type: actiontypes.DELETE_COMMENT_REQUEST });
     try {
-      await api.delete(`/api/comments/${commentId}`);
+      await api.delete(`/api/comment/${commentId}`);
       dispatch({ type: actiontypes.DELETE_COMMENT_SUCCESS, commentId });
     } catch (error) {
       console.log("error", error);
@@ -53,7 +53,7 @@ export const fetchComments = (issueId) => {
         type: actiontypes.FETCH_COMMENT_SUCCESS,
         comments: response.data,
       });
-      console.log("fetched coments : ", response.data);
+      // console.log("fetched coments : ", response.data);
     } catch (error) {
       console.log("error", error);
     }
