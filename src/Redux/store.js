@@ -5,12 +5,14 @@ import { projectReducer } from "./Projects/Reducer";
 import commentReducer from "./Comment/Reducer";
 import issueReducer from "./issue/Reducer";
 import subscriptionReducer from "./Subscription/Reducer";
+import ChatReducer from "./chat/Reducer";
 const roorReducer = combineReducers({
   auth: authReducer,
   project: projectReducer,
   comment: commentReducer,
   issue: issueReducer,
   subscription: subscriptionReducer,
+  chat: ChatReducer,
 });
 
 export const store = legacy_createStore(roorReducer, applyMiddleware(thunk));

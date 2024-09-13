@@ -46,7 +46,7 @@ export const login = (userData) => async (dispatch) => {
       setAuthToken(data.jwt);
       dispatch({ type: LOGIN_SUCCESS, payload: data });
     }
-    console.log("Login success", data);
+    // console.log("Login success", data);
   } catch (error) {
     console.log(error);
     dispatch({ type: LOGIN_FAILURE, payload: error.message });
@@ -64,7 +64,7 @@ export const getUser = () => async (dispatch) => {
 
     dispatch({ type: GET_USER_SUCCESS, payload: data });
 
-    console.log("user Success", data);
+    // console.log("user Success", data);
   } catch (error) {
     console.log(error);
     dispatch({ type: GET_USER_FAILURE, payload: error.message });
@@ -76,6 +76,6 @@ export const logout = () => (dispatch) => {
     setAuthToken(null);
     dispatch({ type: LOGOUT });
   } catch (error) {
-    console.log("Logout error:", error);
+    // console.log("Logout error:", error);
   }
 };
