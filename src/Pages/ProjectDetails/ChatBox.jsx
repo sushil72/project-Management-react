@@ -10,9 +10,7 @@ import { useParams } from "react-router-dom";
 import { fetchChatByProject } from "@/Redux/chat/Action";
 const ChatBox = () => {
   const [message, setmessage] = useState("");
-  const handleMessagechange = (e) => {
-    setmessage(e.target.value);
-  };
+
   const dispatch = useDispatch();
   const { id } = useParams();
   const { auth, chat } = useSelector((store) => store);
@@ -20,7 +18,6 @@ const ChatBox = () => {
   useEffect(() => {
     dispatch(fetchChatByProject(id));
   }, []);
-
   useEffect(() => {
     dispatch(fetchChatMessages(chat.chat?.id));
   }, []);
@@ -35,7 +32,13 @@ const ChatBox = () => {
         content: message,
       })
     );
+    setmessage(" ");
   };
+
+  const handleMessagechange = (e) => {
+    setmessage(e.target.value);
+  };
+
   return (
     <div className="sticky border ">
       <div className="border rounded-lg">
@@ -44,7 +47,7 @@ const ChatBox = () => {
       <ScrollArea className="h-[32rem] w-full p-5 flex gap-3 flex-col">
         {chat.messages.map((item, index) => {
           // console.log("ChatTTTT : ", chat.messages);
-          return item[0].sender.id !== auth.user.id ? (
+          return item.sender.id !== auth.user.id ? (
             <div className="flex gap-2 mb-2 justify-start" key={item}>
               <Avatar className="relative -top-5">
                 <AvatarFallback>S</AvatarFallback>
@@ -57,7 +60,7 @@ const ChatBox = () => {
           ) : (
             <div className="flex gap-2 mb-2 justify-end" key={item}>
               <div className="space-y-2 py-2 px-5 border rounded-ss-2xl rounded-lg rounded-tr-none">
-                <p>Sushil</p>
+                <p>{item[0].sender.fullname}</p>
                 <p className="text-gray-300">{item[0].content} </p>
               </div>
               <Avatar className="relative -top-5">

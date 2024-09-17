@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const subscriptionReducer = (state = initialState, action) => {
-  switch (action.actionType) {
+  switch (action.type) {
     case actionType.GET_USER_SUBSCRIPTION_REQUEST:
     case actionType.UPGRADE_SUBSCRIPTION_REQUEST:
       return {
