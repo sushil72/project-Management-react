@@ -31,7 +31,7 @@ export const register = (userData) => async (dispatch) => {
       setAuthToken(data.jwt);
       dispatch({ type: REGISTER_SUCCESS, payload: data });
     }
-    // console.log("Register success", data);
+    console.log("Register success", data);
   } catch (error) {
     console.log(error);
     dispatch({ type: REGISTER_FAILURE, payload: error.message });

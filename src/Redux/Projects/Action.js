@@ -131,6 +131,9 @@ export const inviteToProject =
   ({ email, projectId }) =>
   async (dispatch) => {
     dispatch({ type: INVITE_TO_PROJECT_REQUEST });
+    console.log("email and projectId : ", email);
+    console.log(projectId);
+
     try {
       const { data } = await api.post("/api/projects/invite", {
         email,
@@ -138,6 +141,7 @@ export const inviteToProject =
       });
       // console.log("invite projects:", data);
       dispatch({ type: INVITE_TO_PROJECT_SUCCESS, projects: data });
+      console.log("invitation sent ");
     } catch (error) {
       console.log(error);
     }

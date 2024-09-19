@@ -17,13 +17,13 @@ function Signup() {
     defaultValues: {
       email: "",
       password: "",
-      fullName: "",
+      fullname: "",
     },
   });
 
   const onSubmit = (data) => {
     dispatch(register(data));
-    console.log(data);
+    console.log("user signed up : ", data);
   };
   return (
     <div className="space-y-5">

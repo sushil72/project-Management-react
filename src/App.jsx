@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./Pages/Home/Home ";
+// import Home from "./Pages/Home/Home";
+
 import Navbar from "./Pages/Navbar/Navbar";
 import ProjectDetail from "./Pages/ProjectDetails/ProjectDetail";
 import IssueDetail from "./Pages/IssueDetail/IssueDetail";
@@ -10,6 +11,9 @@ import { useEffect } from "react";
 import { getUser } from "./Redux/Auth/Action";
 import { fetchProjects } from "./Redux/Projects/Action";
 import UpgradSuccess from "./Pages/Subcription/UpgradSuccess";
+import AcceptiInvitation from "./Project/AcceptiInvitation";
+import { Home } from "./Pages/Home/Home ";
+
 export default function App() {
   const dispatch = useDispatch();
   const { auth } = useSelector((store) => store);
@@ -32,6 +36,8 @@ export default function App() {
               path="/project/:projectId/issue/:issueId"
               element={<IssueDetail />}
             />
+            {/* Move this Route inside the Routes */}
+            <Route path="/accept_invitation" element={<AcceptiInvitation />} />
           </Routes>
         </div>
       ) : (

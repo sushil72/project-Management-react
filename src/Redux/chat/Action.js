@@ -1,73 +1,61 @@
 import api from "../Auth/api";
-import * as actiontypes from "./ActionType";
+import * as actionTypes from "./ActionType";
 
-export const sendMessage = (messageData) => {
-  return async (dispatch) => {
-    dispatch({ type: actiontypes.SEND_MESSAGE_REQUEST });
-    try {
-      console.log("messageData mmc", messageData);
+export const sendMessage = (messageData) => async (dispatch) => {
+  dispatch({ type: actionTypes.SEND_MESSAGE_REQUEST });
+  // console.log("msg Data : ", messageData);
+  try {
+    const response = await api.post("/api/messages/send", messageData);
+    dispatch({
+      type: actionTypes.SEND_MESSAGE_SUCCESS,
+      message: response.data,
+    });
 
-      const response = await api.post("/api/messages/send", messageData);
-
-      dispatch({
-        type: actiontypes.SEND_MESSAGE_SUCCESS,
-        message: response.data,
-      });
-      // console.log("chat Data", response.data);
-
-      console.log("message sent success");
-    } catch (error) {
-      console.log(error);
-      dispatch({
-        type: actiontypes.SEND_MESSAGE_FAILURE,
-        error: error.message,
-      });
-    }
-  };
+    // console.log("Message Sent from client  : ", response.data);
+  } catch (error) {
+    console.error("Error sending message:", error);
+    dispatch({
+      type: actionTypes.SEND_MESSAGE_FAILURE,
+      error: error.message,
+    });
+  }
 };
 
-export const fetchChatMessages = (chatId) => {
-  return async (dispatch) => {
-    dispatch({ type: actiontypes.FETCH_CHAT_MESSAGE_REQUEST });
-    try {
-      console.log("chat id in action :", chatId);
-
-      const response = await api.get(`/api/messages/chat/${chatId}`);
-      dispatch({
-        type: actiontypes.FETCH_CHAT_MESSAGE_SUCCESS,
-        chatId,
-        messages: response.data,
-      });
-      console.log("fetch message", response.data);
-    } catch (error) {
-      console.log("error : message not fpund  ", error);
-      dispatch({
-        type: actiontypes.FETCH_CHAT_MESSAGE_FAILURE,
-        chatId,
-        error: error.message,
-      });
-    }
-  };
+export const fetchChatMessages = (chatId) => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_CHAT_MESSAGE_REQUEST });
+  try {
+    const response = await api.get(`/api/messages/chat/${chatId}`);
+    dispatch({
+      type: actionTypes.FETCH_CHAT_MESSAGE_SUCCESS,
+      chatId,
+      messages: response.data,
+    });
+    console.log("fetched messages  action : ", response.data);
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    dispatch({
+      type: actionTypes.FETCH_CHAT_MESSAGE_FAILURE,
+      chatId,
+      error: error.message,
+    });
+  }
 };
 
-export const fetchChatByProject = (projectId) => {
-  return async (dispatch) => {
-    dispatch({ type: actiontypes.FETCH_CHAT_BY_PROJECT_REQUEST });
-    try {
-      console.log("project  id in action :", projectId);
+export const fetchChatByProject = (projectId) => async (dispatch) => {
+  dispatch({ type: actionTypes.FETCH_CHAT_BY_PROJECT_REQUEST });
+  try {
+    const response = await api.get(`/api/projects/${projectId}/chat`);
+    dispatch({
+      type: actionTypes.FETCH_CHAT_BY_PROJECT_SUCCESS,
+      chat: response.data,
+    });
 
-      const response = await api.get(`/api/projects/${projectId}/chat`);
-      console.log("fetched chat", response.data);
-      dispatch({
-        type: actiontypes.FETCH_CHAT_BY_PROJECT_SUCCESS,
-        chat: response.data,
-      });
-    } catch (error) {
-      console.log("error: chat not found  ", error);
-      dispatch({
-        type: actiontypes.FETCH_CHAT_BY_PROJECT_FAILURE,
-        error: error.message,
-      });
-    }
-  };
+    console.log("fetched chat by project action  ", response.data);
+  } catch (error) {
+    console.error("Error fetching chat by project:", error);
+    dispatch({
+      type: actionTypes.FETCH_CHAT_BY_PROJECT_FAILURE,
+      error: error.message,
+    });
+  }
 };
