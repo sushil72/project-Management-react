@@ -16,78 +16,42 @@ import {
   SEARCH_PROJECT_SUCCESS,
 } from "./ActionType";
 
-//fetch projects
-
 export const fetchProjects =
-  ({ category, tags }) =>
+  ({ category, tag }) =>
   async (dispatch) => {
     dispatch({ type: FETCH_PROJECT_REQUEST });
     try {
+      console.log("category: ", category, ", tag: ", tag);
+
       const { data } = await api.get("/api/projects", {
-        params: (category, tags),
+        params: { Category: category, tag: tag },
       });
-      // console.log("all projects fetched", data);
       dispatch({ type: FETCH_PROJECT_SUCCESS, projects: data });
+      console.log("Data by tag : ", data);
     } catch (error) {
       console.log(error);
     }
   };
 
-//search projects
 export const searchProjects =
   ({ keyword }) =>
   async (dispatch) => {
     dispatch({ type: SEARCH_PROJECT_REQUEST });
     try {
-      // console.log("Searching for keyword:", keyword);
       const { data } = await api.get("/api/projects/search?keyword=" + keyword);
-      // console.log("Searched projects are:", data);
-      // console.log("Searched projects are :", data);
       dispatch({ type: SEARCH_PROJECT_SUCCESS, projects: data });
+      console.log("searched project : ", data);
     } catch (error) {
       console.log(error);
     }
   };
 
-// export const searchProjects =
-//   ({ keyword }) =>
-//   async (dispatch) => {
-//     dispatch({ type: SEARCH_PROJECT_REQUEST });
-//     try {
-//       const { data } = await api.get("/api/projects/search?keyword=" + keyword);
-//       console.log("Searched projects are:", data);
-//       dispatch({ type: SEARCH_PROJECT_SUCCESS, projects: data });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//create projects
-// export const createProjects =
-//   ({ projectData }) =>
-//   async (dispatch) => {
-//     dispatch({ type: CREATE_PROJECT_REQUEST });
-//     try {
-//       const { data } = await api.post("/api/projects/create", projectData);
-//       console.log("created projects..... :", data);
-//       dispatch({ type: CREATE_PROJECT_SUCCESS, projects: data });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
 export const createProjects = (projectData) => async (dispatch) => {
   dispatch({ type: CREATE_PROJECT_REQUEST });
   try {
-    // console.log("Project data being sent:", projectData);
-
     const { data } = await api.post("/api/projects/create", projectData);
-    // console.log("Created project response:", data);
     dispatch({ type: CREATE_PROJECT_SUCCESS, payload: data });
   } catch (error) {
-    // console.log(
-    //   "Error creating project:",
-    //   error.response?.data || error.message
-    // );
     dispatch({
       type: CREATE_PROJECT_FAILURE,
       payload: error.response?.data || error.message,
@@ -100,11 +64,9 @@ export const createProjects = (projectData) => async (dispatch) => {
 export const fetchProjectById = (id) => async (dispatch) => {
   dispatch({ type: FETCH_PROJECT_BY_ID_REQUEST });
   try {
-    console.log("fetching id =", id);
-
     const { data } = await api.get("/api/projects/" + id);
-    // console.log("fetched projects by id  are :", data);
     dispatch({ type: FETCH_PROJECT_BY_ID_SUCCESS, projects: data });
+    console.log("ny id  : ", data);
   } catch (error) {
     console.log(error.message);
   }

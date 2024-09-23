@@ -60,7 +60,7 @@ const ProjectDetail = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        Onclick={handleProjectInvitation}
+                        OnClick={handleProjectInvitation}
                       >
                         <span className="">invite</span>
                         <PlusIcon className="w-3 h-3" />

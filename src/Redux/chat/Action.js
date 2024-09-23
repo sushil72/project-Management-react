@@ -10,8 +10,6 @@ export const sendMessage = (messageData) => async (dispatch) => {
       type: actionTypes.SEND_MESSAGE_SUCCESS,
       message: response.data,
     });
-
-    // console.log("Message Sent from client  : ", response.data);
   } catch (error) {
     console.error("Error sending message:", error);
     dispatch({
@@ -30,7 +28,6 @@ export const fetchChatMessages = (chatId) => async (dispatch) => {
       chatId,
       messages: response.data,
     });
-    console.log("fetched messages  action : ", response.data);
   } catch (error) {
     console.error("Error fetching messages:", error);
     dispatch({
@@ -49,8 +46,6 @@ export const fetchChatByProject = (projectId) => async (dispatch) => {
       type: actionTypes.FETCH_CHAT_BY_PROJECT_SUCCESS,
       chat: response.data,
     });
-
-    console.log("fetched chat by project action  ", response.data);
   } catch (error) {
     console.error("Error fetching chat by project:", error);
     dispatch({
