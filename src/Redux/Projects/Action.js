@@ -33,18 +33,18 @@ export const fetchProjects =
     }
   };
 
-export const searchProjects =
-  ({ keyword }) =>
-  async (dispatch) => {
-    dispatch({ type: SEARCH_PROJECT_REQUEST });
-    try {
-      const { data } = await api.get("/api/projects/search?keyword=" + keyword);
-      dispatch({ type: SEARCH_PROJECT_SUCCESS, projects: data });
-      console.log("searched project : ", data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+export const searchProjects = (keyword) => async (dispatch) => {
+  console.log("keyWord in action : ", keyword);
+
+  dispatch({ type: SEARCH_PROJECT_REQUEST });
+  try {
+    const { data } = await api.get("/api/projects/search?keyword=" + keyword);
+    dispatch({ type: SEARCH_PROJECT_SUCCESS, projects: data });
+    console.log("searched project : ", data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const createProjects = (projectData) => async (dispatch) => {
   dispatch({ type: CREATE_PROJECT_REQUEST });

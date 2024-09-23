@@ -53,6 +53,8 @@ export const ProjectList = () => {
 
   const handleSearchChange = (e) => {
     setKeyword(e.target.value);
+    console.log("Keyword in component ::", e.target.value);
+    dispatch(searchProjects(e.target.value));
   };
 
   useEffect(() => {
@@ -135,15 +137,19 @@ export const ProjectList = () => {
           </div>
         </div>
         <div>
-          <div className="space-y-5 min-h-[74vh]">
-            {project.projects && project.projects.length > 0 ? (
-              project.projects.map((item) => (
-                <ProjectCard key={item.id} item={item} />
+          {keyword ? (
+            project.searchedProjects?.length > 0 ? (
+              project.searchedProjects.map((item, index) => (
+                <ProjectCard key={index} item={item} />
               ))
             ) : (
-              <p>No projects found</p>
-            )}
-          </div>
+              <p>No search results found.</p>
+            )
+          ) : (
+            project.projects.map((item, index) => (
+              <ProjectCard key={index} item={item} />
+            ))
+          )}
         </div>
       </section>
     </div>
