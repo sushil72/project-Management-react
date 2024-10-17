@@ -26,6 +26,7 @@ export const fetchProjects =
       const { data } = await api.get("/api/projects", {
         params: { Category: category, tag: tag },
       });
+
       dispatch({ type: FETCH_PROJECT_SUCCESS, projects: data });
       console.log("Data by tag : ", data);
     } catch (error) {

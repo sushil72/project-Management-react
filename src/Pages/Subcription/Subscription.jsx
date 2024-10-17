@@ -2,9 +2,8 @@ import { useSelector } from "react-redux";
 import SubscriptionCard from "./SubscriptionCard";
 
 const Subscription = () => {
-  // const { subscription } = useSelector((store) => store);
   const { subscription } = useSelector((store) => store);
-  console.log("planType : ", subscription.userSubscription?.planType);
+  console.log("planType string : ", subscription.userSubscription?.planType);
 
   const paidPlan = [
     "Add unlimited projects",
@@ -51,7 +50,7 @@ const Subscription = () => {
             buttonName:
               subscription.userSubscription?.planType == "FREE"
                 ? "Current Plan"
-                : "Get started ",
+                : "Get Started",
           }}
         />
         <SubscriptionCard

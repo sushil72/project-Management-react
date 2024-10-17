@@ -61,9 +61,12 @@ export const ProjectList = () => {
     if (keyword) {
       dispatch(searchProjects({ keyword }));
     } else {
-      dispatch(fetchProjects({}));
+      const fetchData = async () => {
+        await dispatch(fetchProjects({}));
+      };
+      fetchData();
     }
-  }, []);
+  }, [dispatch, keyword]);
 
   return (
     <div className="relative px-5 lg:px-0 lg:flex gap-5 justify-center py-5">

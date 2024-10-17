@@ -32,7 +32,7 @@ function Signup() {
         <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
-            name="fullName"
+            name="fullname"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
